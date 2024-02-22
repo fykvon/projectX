@@ -1,0 +1,16 @@
+
+{% load static %}
+{% block content %}
+
+{{ player.role }}
+{{ player.f_name }}
+{{ player.s_name }}
+{{ player.year_born }}
+{{ player.team }}
+<img src="{{ player.image.url }}" alt="Photo" width="100" height="200">
+<p>Statistics</p>
+{{ player.goals }}
+{{ player.assists }}
+{{ player.yellow_cards }}
+{{ player.red_cards }}
+{% endblock %}

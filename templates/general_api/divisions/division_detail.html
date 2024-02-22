@@ -1,0 +1,17 @@
+{% include 'general_api/base/base.html' %}
+
+{% block content %}
+{{division.name}}
+
+{% for team in teams %}
+{{ team.name }}
+{{ team.win }}
+{{ team.lose }}
+{{ team.draw }}
+{{ team.goals }}
+{{ team.missed_goals }}
+{{ team.yellow_cards }}
+{{ team.red_cards }}
+{% endfor %}
+
+{% endblock %}

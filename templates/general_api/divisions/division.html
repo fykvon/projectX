@@ -1,0 +1,22 @@
+{% include 'general_api/base/base.html' %}
+
+{% block content %}
+<p>
+    {% for division, teams in divisions.items %}
+
+    {{ division }}
+
+    {% for team in teams %}
+<ul>{{ team.name }}
+    {{ team.win }}
+    {{ team.lose }}
+    {{ team.draw }}
+    {{ team.goals }}
+</ul>
+{% endfor %}
+{% endfor %}</p>
+
+
+{% endblock %}
+
+</body>

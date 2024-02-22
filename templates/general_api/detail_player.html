@@ -1,0 +1,12 @@
+{% extends 'general_api/base.html' %}
+
+{% block content %}
+
+<body>
+{% for player in players %}
+    {{ player.role }}
+    {{ player.f_name }}
+    {{ player.s_name }}
+{% endfor %}
+</body>
+{% endblock %}
