@@ -1,16 +1,47 @@
-
+{% include 'general_api/base/base.html' %}
 {% load static %}
 {% block content %}
 
-{{ player.role }}
-{{ player.f_name }}
-{{ player.s_name }}
-{{ player.year_born }}
-{{ player.team }}
-<img src="{{ player.image.url }}" alt="Photo" width="100" height="200">
-<p>Statistics</p>
-{{ player.goals }}
-{{ player.assists }}
-{{ player.yellow_cards }}
-{{ player.red_cards }}
+<div>
+		<img src="{{ player.image.url }}" alt="Photo" width="100" height="200">
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+        <p>Роль на поле: {{ player.role }}</p>
+        <p>Имя игрока:{{ player }}</p>
+        <p>Дата рождения: {{ player.year_born }}</p>
+        <p>Текущая команда: {{ player.team }}</p>
+
+
+</div>
+<div id="career_tab_slide_0" class="tab_slide active">
+
+	<div class="white_border">
+		<table class="round_table stats" border="1">
+			<tbody><tr class="grey_line">
+				<th width="150">Турнир</th>
+				<th>Команда</th>
+				<th width="80">Заявлен</th>
+				<th width="80">Игры</th>
+				<th width="80">Голы</th>
+				<th width="80">Пасы</th>
+				<th width="80">ЖК</th>
+				<th width="80">КК</th>
+
+			</tr>
+			<tr class="white_line squad-item" season_id="80" style="display: table-row;">
+					<td width="150"><a href="{{ division.get_absolute_url }}"> FDHSAFLD{{division.name}}</a></td>
+					<td>{{ player.team }}</td>
+					<td>{{ player.is_active }}</td>
+					<td>{{ player.games }}</td>
+					<td>{{ player.goals }}</td>
+					<td>{{ player.assists }}</td>
+					<td>{{ player.yellow_cards }}</td>
+					<td>{{ player.red_cards }}</td>
+
+		</tbody></table>
+	</div>
+</div>
 {% endblock %}
+

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Division(models.Model):
@@ -8,6 +9,9 @@ class Division(models.Model):
 
     name = models.CharField(max_length=100, verbose_name='division name')
     year = models.CharField(max_length=4, verbose_name='division year')
+
+    def get_absolute_url(self):
+        return reverse("general_api:division_detail", kwargs={"pk": self.pk})
 
 
 class Team(models.Model):
@@ -25,6 +29,8 @@ class Team(models.Model):
     missed_goals = models.IntegerField(default=0, verbose_name='Total team missed goals')
     yellow_cards = models.IntegerField(default=0, verbose_name='Total team yellow cards')
     red_cards = models.IntegerField(default=0, verbose_name='Total team red cards')
+    team_photo = models.ImageField(upload_to='static/team_photo/', default='static/none_image_team_photo.jpg/')
+    team_logo = models.ImageField(upload_to='static/team_logo/', default='static/none_image_team_logo.jpg/')
 
     def __str__(self):
         return f'{self.name}'
@@ -49,6 +55,8 @@ class Player(models.Model):
     assists = models.IntegerField(default=0, verbose_name='Total player assists')
     yellow_cards = models.IntegerField(default=0, verbose_name='Total player yellow cards')
     red_cards = models.IntegerField(default=0, verbose_name='Total player red cards')
+    games = models.IntegerField(default=0, verbose_name='Played_games')
+    is_active = models.BooleanField(default=True, verbose_name='Active player')
 
     def __str__(self):
         return f'{self.f_name} {self.s_name}'

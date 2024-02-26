@@ -22,6 +22,7 @@ class DeleteUserView(DeleteView):
     pass
 
 
+# TODO: rename class
 class DetailUserView(DetailView):
     model = Player
     template_name = 'general_api/detail_player.html'
@@ -84,5 +85,16 @@ class PlayerDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         player = self.model.objects.get(pk=self.kwargs['pk'])
-        print(player.image.url)
+        division = player.team.division
+        print(division.get_absolute_url())
         return render(request, self.template_name, context={'player': player})
+
+
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = 'general_api/teams/team_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        team = self.model.objects.get(slug=self.kwargs['slug'])
+        players = Player.objects.filter(team__slug=team.slug)
+        return render(request, self.template_name, context={'team': team, 'players': players})

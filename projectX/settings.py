@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'news',
+    'auth_api',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -134,3 +135,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
