@@ -17,6 +17,7 @@
             <th width="80">Пропущенные</th>
             <th width="80">ЖК</th>
             <th width="80">КК</th>
+            <th width="80">Очки</th>
         </tr>
 
         {% for team in teams %}
@@ -32,6 +33,7 @@
         <td>{{ team.missed_goals }}</td>
         <td>{{ team.yellow_cards }}</td>
         <td>{{ team.red_cards }}</td>
+        <td>{{ team.points }}</td>
         </tr>
         </tbody>
         {% endfor %}
@@ -54,6 +56,69 @@
             </td>
             <td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
             <td>{{ player.goals }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h2>Красные карточки</h2>
+    <table border="1">
+        <tr>
+            <th>ФОТО</th>
+            <th>ФИО</th>
+            <th>Команда</th>
+            <th>Красные Карточки</th>
+        </tr>
+        {% for player in red_cards %}
+        <tr>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">
+                <img src="{{ player.image.url }}" width="20" height="20"></a></td>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">{{player.f_name}} {{player.s_name}}</a>
+            </td>
+            <td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
+            <td>{{ player.red_cards }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h2>Желтые карточки</h2>
+    <table border="1">
+        <tr>
+            <th>ФОТО</th>
+            <th>ФИО</th>
+            <th>Команда</th>
+            <th>Желтые Карточки</th>
+        </tr>
+        {% for player in yellow_cards %}
+        <tr>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">
+                <img src="{{ player.image.url }}" width="20" height="20"></a></td>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">{{player.f_name}} {{player.s_name}}</a>
+            </td>
+            <td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
+            <td>{{ player.yellow_cards }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h2>Голевые передачи</h2>
+    <table border="1">
+        <tr>
+            <th>ФОТО</th>
+            <th>ФИО</th>
+            <th>Команда</th>
+            <th>Голевые передачи</th>
+        </tr>
+        {% for player in assists %}
+        <tr>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">
+                <img src="{{ player.image.url }}" width="20" height="20"></a></td>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">{{player.f_name}} {{player.s_name}}</a>
+            </td>
+            <td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
+            <td>{{ player.assists }}</td>
         </tr>
         {% endfor %}
     </table>

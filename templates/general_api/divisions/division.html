@@ -20,13 +20,13 @@
             <th width="80">Разница</th>
             <th width="80">ЖК</th>
             <th width="80">КК</th>
+            <th width="80">Очки</th>
 
         {% for team in teams %}
         <tr>
             <td>
             <a href="{% url 'general_api:team_detail' slug=team.slug %} ">{{ team.name }}</a>
             </td>
-
             <td>{{ team.games }}</td>
             <td>{{ team.win }}</td>
             <td>{{ team.lose }}</td>
@@ -36,7 +36,7 @@
             <td>{{ team.delta_goals }}</td>
             <td>{{ team.yellow_cards }}</td>
             <td>{{ team.red_cards }}</td>
-
+            <td>{{ team.points }}</td>
         {% endfor %}
         </tbody>
     </table>

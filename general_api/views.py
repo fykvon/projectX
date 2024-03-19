@@ -6,7 +6,7 @@ from django.views.generic import (CreateView,
                                   )
 from rest_framework import mixins, viewsets
 
-from .services import PlayerServices
+from .services import PlayerServices, TeamServices
 from .models import Player, Team, Division
 from .serializer import PlayerSerializer
 
@@ -62,9 +62,8 @@ class DivisionView(DetailView):
         divisions_queryset = Division.objects.all()
         divisions = {}
         for division in divisions_queryset:
-            teams = Team.objects.filter(division__name=division.name)
+            teams = Team.objects.filter(division__name=division.name).order_by('-points')
             divisions[division] = teams
-
         return render(request, self.template_name,
                       context={'divisions': divisions})
 
@@ -79,9 +78,15 @@ class DivisionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         division = self.model.objects.get(id=self.kwargs['pk'])
-        teams = Team.objects.filter(division=division.pk)
-        forwards = PlayerServices.best_strikers()
-        context.update({'teams': teams, 'forwards': forwards})
+        teams = Team.objects.filter(division=division.pk).order_by('-points')
+        player = Player
+        forwards = PlayerServices.best_strikers(player=player)
+        red_cards = PlayerServices.most_red_cards(player=player)
+        yellow_cards = PlayerServices.most_yellow_cards(player=player)
+        assists = PlayerServices.best_assists(player=player)
+        points = TeamServices.main_service()
+        context.update({'teams': teams, 'forwards': forwards, 'red_cards': red_cards, 'yellow_cards': yellow_cards,
+                        'assists': assists})
         return context
 
 

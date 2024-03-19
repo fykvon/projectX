@@ -18,7 +18,7 @@ class PlayerServices:
     def update_team_missed_goals(sender, instance, **kwargs):
         team = instance.team
         players = Player.objects.filter(team=team)
-        missed_goals = players.aggregate(total_missed_goals=Sum('missed_goals'))['missed_goals']
+        missed_goals = players.aggregate(total_missed_goals=Sum('missed_goals'))['total_missed_goals']
         team.missed_goals = missed_goals
         team.save()
 
@@ -39,20 +39,41 @@ class PlayerServices:
         team.save()
 
     @staticmethod
-    def best_strikers():
-        best_strikers = Player.objects.order_by('-goals')[:10]
+    def best_strikers(player):
+        best_strikers = player.objects.order_by('-goals')[:10]
         return best_strikers
 
+    @staticmethod
+    def best_assists(player):
+        best_assists = player.objects.order_by('-assists')[:10]
+        return best_assists
 
-# class TeamServices:
-#
-#     @receiver(post_save, sender=Team)
-#     def delta_goals_count(sender, instance, **kwargs):
-#         team = instance
-#         delta = team.goals - team.missed_goals
-#         team.delta_goals = delta
-#         points = (team.win * 3) + team.draw
-#         team.points = points
-#         games = team.win + team.draw + team.lose
-#         team.games = games
-#         team.save()
+    @staticmethod
+    def most_red_cards(player):
+        most_red_cards = player.objects.order_by('-red_cards')[:10]
+        return most_red_cards
+
+    @staticmethod
+    def most_yellow_cards(player):
+        yellow_cards = player.objects.order_by('-yellow_cards')[:10]
+        return yellow_cards
+
+    @staticmethod
+    def most_yellow_cards(player):
+        yellow_cards = player.objects.order_by('-yellow_cards')[:10]
+        return yellow_cards
+
+class TeamServices:
+
+    @staticmethod
+    def main_service():
+        teams = Team.objects.all()
+        for team in teams:
+            delta = team.goals - team.missed_goals
+            team.delta_goals = delta
+            points = (team.win * 3) + team.draw
+            team.points = points
+            games = team.win + team.draw + team.lose
+            team.games = games
+            team.save()
+

@@ -27,7 +27,7 @@ class TeamAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ["name", "slug", "division", "team_photo", "team_logo", ],
+                "fields": ["name", "slug", "division", "team_photo", "team_logo", "win", "lose", "draw"],
             },
         ),
     ]
