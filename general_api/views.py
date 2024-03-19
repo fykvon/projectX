@@ -64,6 +64,7 @@ class DivisionView(DetailView):
         for division in divisions_queryset:
             teams = Team.objects.filter(division__name=division.name).order_by('-points')
             divisions[division] = teams
+        TeamServices.main_service()
         return render(request, self.template_name,
                       context={'divisions': divisions})
 
@@ -84,9 +85,9 @@ class DivisionDetailView(DetailView):
         red_cards = PlayerServices.most_red_cards(player=player)
         yellow_cards = PlayerServices.most_yellow_cards(player=player)
         assists = PlayerServices.best_assists(player=player)
-        points = TeamServices.main_service()
+        TeamServices.main_service()
         context.update({'teams': teams, 'forwards': forwards, 'red_cards': red_cards, 'yellow_cards': yellow_cards,
-                        'assists': assists})
+                        'assists': assists,})
         return context
 
 
