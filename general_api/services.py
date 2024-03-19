@@ -40,27 +40,27 @@ class PlayerServices:
 
     @staticmethod
     def best_strikers(player):
-        best_strikers = player.objects.order_by('-goals')[:10]
+        best_strikers = player.order_by('-goals')[:10]
         return best_strikers
 
     @staticmethod
     def best_assists(player):
-        best_assists = player.objects.order_by('-assists')[:10]
+        best_assists = player.order_by('-assists')[:10]
         return best_assists
 
     @staticmethod
     def most_red_cards(player):
-        most_red_cards = player.objects.order_by('-red_cards')[:10]
+        most_red_cards = player.order_by('-red_cards')[:10]
         return most_red_cards
 
     @staticmethod
     def most_yellow_cards(player):
-        yellow_cards = player.objects.order_by('-yellow_cards')[:10]
+        yellow_cards = player.order_by('-yellow_cards')[:10]
         return yellow_cards
 
     @staticmethod
     def most_yellow_cards(player):
-        yellow_cards = player.objects.order_by('-yellow_cards')[:10]
+        yellow_cards = player.order_by('-yellow_cards')[:10]
         return yellow_cards
 
 class TeamServices:

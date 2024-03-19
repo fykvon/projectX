@@ -79,7 +79,7 @@ class DivisionDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         division = self.model.objects.get(id=self.kwargs['pk'])
         teams = Team.objects.filter(division=division.pk).order_by('-points')
-        player = Player
+        player = Player.objects.filter(team__division__pk=division.pk)
         forwards = PlayerServices.best_strikers(player=player)
         red_cards = PlayerServices.most_red_cards(player=player)
         yellow_cards = PlayerServices.most_yellow_cards(player=player)
