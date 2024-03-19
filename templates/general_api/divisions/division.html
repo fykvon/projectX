@@ -1,20 +1,47 @@
 {% include 'general_api/base/base.html' %}
 
 {% block content %}
-<p>
-    {% for division, teams in divisions.items %}
-        {{ division }}
+
+
+{% for division, teams in divisions.items %}
+<div>
+    <h3>
+    <a href="{% url 'general_api:division_detail' pk=division.pk %}">{{ division.name }}</a></h3>
+    <table border="1">
+        <tbody>
+        <tr class="div_stat_table">
+            <th>Команды</th>
+            <th width="80">Игры</th>
+            <th width="80">Победы</th>
+            <th width="80">Поражения</th>
+            <th width="80">Ничьи</th>
+            <th width="80">Голы</th>
+            <th width="80">Пропущенные</th>
+            <th width="80">Разница</th>
+            <th width="80">ЖК</th>
+            <th width="80">КК</th>
+
         {% for team in teams %}
-
-        <ul>
+        <tr>
+            <td>
             <a href="{% url 'general_api:team_detail' slug=team.slug %} ">{{ team.name }}</a>
+            </td>
 
-            {{ team.win }}
-            {{ team.lose }}
-            {{ team.draw }}
-            {{ team.goals }}
-</ul>
-{% endfor %}
+            <td>{{ team.games }}</td>
+            <td>{{ team.win }}</td>
+            <td>{{ team.lose }}</td>
+            <td>{{ team.draw }}</td>
+            <td>{{ team.goals }}</td>
+            <td>{{ team.missed_goals }}</td>
+            <td>{{ team.delta_goals }}</td>
+            <td>{{ team.yellow_cards }}</td>
+            <td>{{ team.red_cards }}</td>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
 {% endfor %}</p>
 
 

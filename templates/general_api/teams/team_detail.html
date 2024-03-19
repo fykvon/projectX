@@ -4,10 +4,10 @@
 {% block content %}
 
 <h1><strong>{{ team.name }}</strong></h1>
-<p><img src="{{ team.team_photo.url }}" width="240" height="180"></p>
-<p><img src="{{ team.team_logo.url }}" width="240" height="180"></p>
+
+<p><img src="{{ team.team_logo.url }}" width="200" height="240"></p>
 <table border="1">
-    <tr>
+    <tr align="center">
         <th>Name</th>
         <th>Photo</th>
         <th>Goals</th>
@@ -15,21 +15,16 @@
         <th>Yellow cards</th>
         <th>Red cards</th>
     </tr>
-
-
     {% for player in players %}
-
-          <tr>
+        <tr align="center">
             <td><a href="{% url 'general_api:player_detail' pk=player.id %}">{{ player }}</a></td>
             <td><a href="{% url 'general_api:player_detail' pk=player.id %}">
-                <img src="{{ player.image.url }}" width="40" height="30"></a></td>
+                <img src="{{ player.image.url }}" width="30" height="40"></a></td>
             <td>{{ player.goals }}</td>
             <td>{{ player.assists }}</td>
             <td>{{ player.yellow_cards }}</td>
             <td>{{ player.red_cards }}</td>
-          </tr>
-
-
+        </tr>
     {% endfor %}
 </table>
 

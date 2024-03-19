@@ -13,6 +13,9 @@ class Division(models.Model):
     def get_absolute_url(self):
         return reverse("general_api:division_detail", kwargs={"pk": self.pk})
 
+    def __str__(self):
+        return self.name
+
 
 class Team(models.Model):
     """
@@ -31,6 +34,9 @@ class Team(models.Model):
     red_cards = models.IntegerField(default=0, verbose_name='Total team red cards')
     team_photo = models.ImageField(upload_to='static/team_photo/', default='static/none_image_team_photo.jpg/')
     team_logo = models.ImageField(upload_to='static/team_logo/', default='static/none_image_team_logo.jpg/')
+    delta_goals = models.IntegerField(default=0, verbose_name='Delta goals')
+    points = models.IntegerField(default=0, verbose_name='Points')
+    games = models.IntegerField(default=0, verbose_name='Games')
 
     def __str__(self):
         return f'{self.name}'
@@ -57,6 +63,7 @@ class Player(models.Model):
     red_cards = models.IntegerField(default=0, verbose_name='Total player red cards')
     games = models.IntegerField(default=0, verbose_name='Played_games')
     is_active = models.BooleanField(default=True, verbose_name='Active player')
+    missed_goals = models.IntegerField(default=0, verbose_name='Missed goals')
 
     def __str__(self):
         return f'{self.f_name} {self.s_name}'

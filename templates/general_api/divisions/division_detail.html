@@ -1,17 +1,61 @@
 {% include 'general_api/base/base.html' %}
 
 {% block content %}
-{{division.name}}
+<h1>{{division.name}}</h1>
 
-{% for team in teams %}
-{{ team.name }}
-{{ team.win }}
-{{ team.lose }}
-{{ team.draw }}
-{{ team.goals }}
-{{ team.missed_goals }}
-{{ team.yellow_cards }}
-{{ team.red_cards }}
-{% endfor %}
+<div>
+    <table border="1">
+        <tbody>
 
+        <tr class="grey_line">
+            <th>Команда</th>
+            <th width="80">Игры</th>
+            <th width="80">Победы</th>
+            <th width="80">Поражения</th>
+            <th width="80">Ничьи</th>
+            <th width="80">Голы</th>
+            <th width="80">Пропущенные</th>
+            <th width="80">ЖК</th>
+            <th width="80">КК</th>
+        </tr>
+
+        {% for team in teams %}
+        <tr>
+        <td>
+            <a href="{% url 'general_api:team_detail' slug=team.slug %}">{{ team }}</a>
+        </td>
+        <td>{{ team.games }}</td>
+        <td>{{ team.win }}</td>
+        <td>{{ team.lose }}</td>
+        <td>{{ team.draw }}</td>
+        <td>{{ team.goals }}</td>
+        <td>{{ team.missed_goals }}</td>
+        <td>{{ team.yellow_cards }}</td>
+        <td>{{ team.red_cards }}</td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h2>Бомбардиры</h2>
+    <table border="1">
+        <tr>
+            <th>ФОТО</th>
+            <th>ФИО</th>
+            <th>Команда</th>
+            <th>Голы</th>
+        </tr>
+        {% for player in forwards %}
+        <tr>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">
+                <img src="{{ player.image.url }}" width="20" height="20"></a></td>
+            <td><a href="{% url 'general_api:player_detail' pk=player.pk %}">{{player.f_name}} {{player.s_name}}</a>
+            </td>
+            <td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
+            <td>{{ player.goals }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

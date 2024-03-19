@@ -17,30 +17,33 @@
 </div>
 <div id="career_tab_slide_0" class="tab_slide active">
 
-	<div class="white_border">
+	<div class="player_stat_table">
 		<table class="round_table stats" border="1">
-			<tbody><tr class="grey_line">
+			<tbody>
+			<tr class="grey_line">
 				<th width="150">Турнир</th>
 				<th>Команда</th>
 				<th width="80">Заявлен</th>
 				<th width="80">Игры</th>
 				<th width="80">Голы</th>
 				<th width="80">Пасы</th>
+				<th width="80">Пропущенные</th>
 				<th width="80">ЖК</th>
 				<th width="80">КК</th>
-
 			</tr>
 			<tr class="white_line squad-item" season_id="80" style="display: table-row;">
-					<td width="150"><a href="{{ division.get_absolute_url }}"> FDHSAFLD{{division.name}}</a></td>
-					<td>{{ player.team }}</td>
+					<td width="150"><a href="{{ division.get_absolute_url }}"> {{division.name}}</a></td>
+					<td><a href="{% url 'general_api:team_detail' slug=player.team.slug %}">{{ player.team }}</a></td>
 					<td>{{ player.is_active }}</td>
 					<td>{{ player.games }}</td>
 					<td>{{ player.goals }}</td>
+					<td>{{ player.missed_goals }}</td>
 					<td>{{ player.assists }}</td>
 					<td>{{ player.yellow_cards }}</td>
 					<td>{{ player.red_cards }}</td>
 
-		</tbody></table>
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endblock %}

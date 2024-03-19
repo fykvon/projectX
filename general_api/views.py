@@ -5,6 +5,8 @@ from django.views.generic import (CreateView,
                                   DetailView,
                                   )
 from rest_framework import mixins, viewsets
+
+from .services import PlayerServices
 from .models import Player, Team, Division
 from .serializer import PlayerSerializer
 
@@ -61,8 +63,10 @@ class DivisionView(DetailView):
         divisions = {}
         for division in divisions_queryset:
             teams = Team.objects.filter(division__name=division.name)
-            divisions[division.name] = teams
-        return render(request, self.template_name, context={'divisions': divisions})
+            divisions[division] = teams
+
+        return render(request, self.template_name,
+                      context={'divisions': divisions})
 
 
 class DivisionDetailView(DetailView):
@@ -75,19 +79,21 @@ class DivisionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         division = self.model.objects.get(id=self.kwargs['pk'])
-        context.update({'teams': Team.objects.filter(division=division.pk)})
+        teams = Team.objects.filter(division=division.pk)
+        forwards = PlayerServices.best_strikers()
+        context.update({'teams': teams, 'forwards': forwards})
         return context
 
 
 class PlayerDetailView(DetailView):
+    """Player Detail view"""
     model = Player
     template_name = 'general_api/players/player_detail.html'
 
     def get(self, request, *args, **kwargs):
         player = self.model.objects.get(pk=self.kwargs['pk'])
         division = player.team.division
-        print(division.get_absolute_url())
-        return render(request, self.template_name, context={'player': player})
+        return render(request, self.template_name, context={'player': player, 'division': division})
 
 
 class TeamDetailView(DetailView):

@@ -9,7 +9,8 @@ class PlayerAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ["role", "f_name", "s_name", "team", "image"],
+                "fields": ["role", "f_name", "s_name", "team", "image", "goals", "yellow_cards", "red_cards", "assists",
+                           "games", "missed_goals"],
             },
         ),
     ]
@@ -26,7 +27,7 @@ class TeamAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ["name", "slug", "division", "team_photo", "team_logo"],
+                "fields": ["name", "slug", "division", "team_photo", "team_logo", ],
             },
         ),
     ]
