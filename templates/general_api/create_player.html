@@ -1,20 +1,12 @@
-{% extends 'general_api/base.html' %}
+{% extends 'general_api/base/base.html' %}
 
-{% load crispy_forms_tags %}
 
 {% block content %}
-  <form method="post" novalidate>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="row">
-      <div class="col-6">
-        {{ form.name|as_crispy_field }}
-      </div>
-      <div class="col-6">
-        {{ form.email|as_crispy_field }}
-      </div>
+    <div>
+      {{ form }}
     </div>
-    {{ form.job_title|as_crispy_field }}
-    {{ form.bio|as_crispy_field }}
     <button type="submit" class="btn btn-success">Save person</button>
   </form>
 {% endblock %}

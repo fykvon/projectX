@@ -67,3 +67,6 @@ class Player(models.Model):
 
     def __str__(self):
         return f'{self.f_name} {self.s_name}'
+
+    def get_absolute_url(self):
+        return reverse("general_api:player_detail", kwargs={"pk": self.pk})

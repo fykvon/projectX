@@ -14,6 +14,7 @@ from .serializer import PlayerSerializer
 class CreatePlayerView(CreateView):
     model = Player
     fields = ['role', 'f_name', 's_name', 'team', 'image']
+    template_name = 'general_api/create_player.html'
 
 
 class UpdateUserView(UpdateView):
