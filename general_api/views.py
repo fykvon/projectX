@@ -4,7 +4,7 @@ from django.views.generic import (CreateView,
                                   DeleteView,
                                   DetailView,
                                   )
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 
 from .services import PlayerServices, TeamServices
 from .models import Player, Team, Division
@@ -17,16 +17,15 @@ class CreatePlayerView(CreateView):
     template_name = 'general_api/create_player.html'
 
 
-class UpdateUserView(UpdateView):
+class UpdatePlayerView(UpdateView):
     pass
 
 
-class DeleteUserView(DeleteView):
+class DeletePlayerView(DeleteView):
     pass
 
 
-# TODO: rename class
-class DetailUserView(DetailView):
+class DetailPlayerView(DetailView):
     model = Player
     template_name = 'general_api/detail_player.html'
 
@@ -35,20 +34,8 @@ class DetailUserView(DetailView):
         return render(request, self.template_name, context={'players': players})
 
 
-class CreatePlayerViewSet(mixins.CreateModelMixin,
-                          mixins.ListModelMixin,
-                          mixins.RetrieveModelMixin,
-                          viewsets.GenericViewSet):
-    """
-    A viewset that provides `retrieve`, `create`, and `list` actions.
-
-    To use it, override the class and set the `.queryset` and
-    `.serializer_class` attributes.
-    """
-    pass
-
-
 class PlayerViewSet(viewsets.ModelViewSet):
+
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
@@ -88,7 +75,7 @@ class DivisionDetailView(DetailView):
         assists = PlayerServices.best_assists(player=player)
         TeamServices.main_service()
         context.update({'teams': teams, 'forwards': forwards, 'red_cards': red_cards, 'yellow_cards': yellow_cards,
-                        'assists': assists,})
+                        'assists': assists, })
         return context
 
 
@@ -104,6 +91,7 @@ class PlayerDetailView(DetailView):
 
 
 class TeamDetailView(DetailView):
+    """Team Detail view"""
     model = Team
     template_name = 'general_api/teams/team_detail.html'
 
