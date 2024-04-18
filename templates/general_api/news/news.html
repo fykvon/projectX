@@ -17,11 +17,10 @@
           <h1 class="mt-2">ProjectX</h1>
           <hr class="mt-0 mb-4">
             {% for news in data %}
-                <h2>{{ news.name }}</h2>
+            <h2><a href="{% url 'news:news_number' pk=news.id %}">{{ news.name }}</a></h2>
                 <p>{{ news.text }}</p>
-                <p>Published by <strong>{{ news.author }}</strong></p>
-                <p>{{ news.created }}</p>
-                <p><a href="{% url 'news:news_number' pk=news.id %}">{{ news.id }}</a></p>
+                <p>Автор статьи <strong>{{ news.author }}</strong></p>
+                <p >Дата создания <strong>{{ news.created.date }}</strong></p>
             {% endfor %}
         </div>
       </div>

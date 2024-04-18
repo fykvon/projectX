@@ -6,3 +6,4 @@ from .models import NewsModel
 @admin.register(NewsModel)
 class NewsAdmin(admin.ModelAdmin):
     fields = ['name', 'text', 'published', 'author',]
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -9,11 +9,27 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{% url 'news:main_page' %}" class="nav-link px-2 text-secondary">Главная</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">{{user}}</a></li>
-                <li><a href="{% url 'general_api:divisions' %}" class="nav-link px-2 text-white">divisions</a></li>
-                <li><a href="{% url 'general_api:create_player' %}" class="nav-link px-2 text-white">Create Player</a></li>
+                <li>
+                    <a href="{% url 'news:main_page' %}" class="nav-link px-2 text-secondary">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'general_api:divisions' %}" class="nav-link px-2 text-white">Дивизионы</a>
+                </li>
+                {% if user.is_superuser %}
+                <li>
+                    <a href="{% url 'general_api:create_player' %}" class="nav-link px-2 text-white">Создать игрока</a>
+                </li>
+                {% endif %}
                 <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                <li>
+                    <p class="nav-link px-2 text-white">
+                        {% if user.is_authenticated %}
+                        {{user}}
+                        {% else %}
+                        Guest
+                        {% endif%}
+                    </p>
+                </li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -28,9 +44,14 @@
                     {% csrf_token %}
                     <button type="submit">logout</button>
                 </form>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+
+                <button type="button" class="btn btn-warning">
+                    <a href="{% url 'auth_api:register' %}">
+                        Sign-up
+                    </a>
+                </button>
             </div>
         </div>
     </div>
 </header>
-</html>
+

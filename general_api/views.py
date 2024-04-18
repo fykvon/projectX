@@ -35,7 +35,6 @@ class DetailPlayerView(DetailView):
 
 
 class PlayerViewSet(viewsets.ModelViewSet):
-
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
@@ -98,4 +97,11 @@ class TeamDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         team = self.model.objects.get(slug=self.kwargs['slug'])
         players = Player.objects.filter(team__slug=team.slug)
-        return render(request, self.template_name, context={'team': team, 'players': players})
+        forwards = players.order_by('-goals').exclude(goals=0)
+        assists = players.order_by('-assists').exclude(assists=0)
+
+        return render(request, self.template_name, context={'team': team,
+                                                            'players': players,
+                                                            'forwards': forwards,
+                                                            'assists': assists,
+                                                            })
